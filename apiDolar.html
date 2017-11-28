@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cotação Dólar</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-2">
+				<div class="col-md-8 col-md-offset-2">
+					<p>Insira o valor em dolar $</p>
+					<input type="text" name="valor" class="form-control" id="valor">
+					<input type="button" name="calcular" id="calcular" class="btn btn-button" value="CALCULAR">
+					<div id="resultado"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript">
+  	
+
+	  	$("#calcular").click(function(){
+	  		if($("#valor").val() != 0){
+		  		$.get( "http://api.promasters.net.br/cotacao/v1/valores", function( data ) {
+					let dolar = data.valores.USD.valor;
+					let valor = $("#valor").val();
+					total = valor * dolar;
+					console.log(total);
+					$("#resultado").append("Valor em Dólar: $" + valor);
+					$("#resultado").append(" Valor em Real: R$" + total.toFixed(2) + "<br>");
+				}, "json" );
+			}else{
+				alert("Insira um valor");
+			}	
+
+	  	});	
+  		
+  </script>
+</body>
+</html>
